@@ -28,12 +28,10 @@ end
 ruby_block "insert_line" do
   block do
     file=Chef::Util::FileEdit.new("/etc/httpd/conf/httpd.conf")
-    #file.insert_line_if_no_match("/Listen 8005/","Listen 8005")
     file.search_file_replace_line(/Listen 80/,"Listen 8005")
     file.search_file_replace_line(/NameVirtualHost \*:80/,"NameVirtualHost *:8005")
     file.search_file_replace_line(/<VirtualHost \*:80>/,"<VirtualHost *:8005>")
     file.insert_line_if_no_match(/Listen 8006/,"Listen 8006")
-    #file.search_file_delete("/Listen 80/")
     file.write_file
   end
   notifies :restart, 'service[httpd]'
