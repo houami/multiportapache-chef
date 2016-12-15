@@ -23,9 +23,11 @@ package 'mysql-server' do
   action :install
 end
 
+service 'mysqld' do
+  action [ :enable, :start]
+end
 
-
-%w{ php php-gd php-mysql}.each do |pkgname|
+%w{ php php-gd libssh2 php-mysql}.each do |pkgname|
   package pkgname do
     action :install
   end

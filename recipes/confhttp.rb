@@ -34,12 +34,24 @@ ruby_block "insert_line" do
     file.insert_line_if_no_match(/Listen 8006/,"Listen 8006")
     file.write_file
   end
-  notifies :restart, 'service[httpd]'
+  #notifies :restart, 'service[httpd]'
 end
 
-
-#remote_file
-#wget http://wordpress.org/latest.tar.gz
-#tar xzvf
-
-#apt-get update &apt-get i
+"""
+remote_file 'dl' do
+  path '/root/'
+  force_unlink true
+  source 'http://wordpress.org/latest.tar.gz'
+  owner 'root'
+  group 'root'
+  mode '0755'
+  action :create
+end
+"""
+bash 'untarring' do
+  code <<-EOH
+    wget http://wordpress.org/latest.tar.gz
+    tar xzvf /latest.tar.gz
+    chown root:root /root
+    EOH
+end

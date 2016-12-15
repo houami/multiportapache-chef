@@ -8,3 +8,4 @@
 #
 include_recipe "jiff_lamp::setlamp"
 include_recipe "jiff_lamp::confhttp"
+include_recipe "jiff_lamp::exesqlconfig"
